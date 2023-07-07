@@ -6,18 +6,14 @@ class CustomUser(AbstractUser):
         ('doctor', 'Doctor'),
         ('patient', 'Patient'),
     )
-
     license_number = models.CharField(max_length=20, blank=True, null=True)
     user_type = models.CharField(max_length=10, choices=LICENSE_TYPES)
-
     @property
     def is_doctor(self):
         return self.user_type == 'doctor'
-
     @property
     def is_patient(self):
         return self.user_type == 'patient'
-
     def save(self, *args, **kwargs):
         if self.user_type == 'patient':
             self.license_number = None

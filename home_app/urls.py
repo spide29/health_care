@@ -17,16 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 # from . import views
 from .views import DoctorSignupView, PatientSignupView, login_view,logout_api, DoctorListAPIView, PatientListAPIView
-
+from .views import UserDetailView
 
 urlpatterns = [
-    # path('', views.home,name= 'home '),
-    # path('signup',views.signup,name='signup'),
-    # path('doctor_signup', views.doctor_signup, name='doctor_signup'),
-    # path('signin', views.signin, name='signin'),
-    # path('signout/', views.signout, name='signout'),
-    # path('doctor_portal', views.doctor_portal,name='doctor_portal'),
-    # path('patient_portal', views.patient_portal,name='patient_portal'),
+    path('api/users-get/', UserDetailView.as_view(), name='user-detail'),
     path('api/signup/doctor/', DoctorSignupView.as_view(), name='doctor_signup'),
     path('api/signup/patient/', PatientSignupView.as_view(), name='patient_signup'),
     path('api/login/', login_view, name='login'),

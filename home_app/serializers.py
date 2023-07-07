@@ -26,6 +26,13 @@ from doctor_app.serializers import DoctorInfoSerializer
 #         user.set_password(password)
 #         user.save()
 #         return user
+
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'license_number', 'user_type', 'is_doctor', 'is_patient']
+        
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class DoctorSignupSerializer(serializers.ModelSerializer):

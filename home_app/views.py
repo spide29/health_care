@@ -1,92 +1,7 @@
-# from django.shortcuts import render, redirect
-# from django.contrib import messages
-# from django.contrib.auth import authenticate, login
-# from django.contrib.auth.models import User
-# from .models import CustomUser
-# from django.contrib.auth import logout
-
-
-# def home(request):
-#     return render(request,'home.html')
-
-# def doctor_signup(request):
-#     if request.method == "POST":
-#         lic = request.POST['lic']
-#         username = request.POST['username']
-#         fname = request.POST['fname']
-#         lname = request.POST['lname']
-#         email = request.POST['email']
-#         pass1 = request.POST['pass1']
-#         pass2 = request.POST['pass2']
-
-#         myuser = CustomUser.objects.create_user(username=username, email=email, password=pass1)
-#         myuser.first_name = fname
-#         myuser.last_name = lname
-#         myuser.user_type = 'doctor'
-#         myuser.license_number = lic
-#         myuser.save()
-
-#         return redirect('signin')
-    
-#     return render(request, "doctor_signup.html")
-
-# def signup(request):
-#     if request.method == "POST":
-#         username = request.POST['username']
-#         fname = request.POST['fname']
-#         lname = request.POST['lname']
-#         email = request.POST['email']
-#         pass1 = request.POST['pass1']
-#         pass2 = request.POST['pass2']
-#         license_number = request.POST.get('lic', None)
-
-#         myuser = CustomUser.objects.create_user(username=username, email=email, password=pass1)
-#         myuser.first_name = fname
-#         myuser.last_name = lname
-#         myuser.user_type = 'patient'
-
-#         if license_number:
-#             myuser.license_number = license_number
-#         else:
-#             myuser.license_number = None
-#         myuser.save()
-#         return redirect('signin')
-#     return render(request, 'signup.html')
-
-# def signin(request):
-#     if request.method == "POST":
-#         username = request.POST['username']
-#         pass1 = request.POST['pass1']
-#         user = authenticate(request, username=username, password=pass1)
-
-#         if user is not None:
-#             login(request, user)
-#             if user.is_doctor:
-#                 return redirect('doctor_portal')
-#             elif user.is_patient:
-#                 return redirect('patient_portal')
-#         else:
-#             return redirect('signin')
-#     return render(request, 'home.html')
-
-# def signout(request):
-#     logout(request)
-#     if request.user.is_authenticated:
-#         request.user.is_active = False
-#         request.user.save()
-#     return redirect('home')
-
-# def doctor_portal(request):
-#     return render(request, 'doctor_portal.html')
-
-# def patient_portal(request):
-#     return render(request, 'patient_portal.html')
-
 from django.http import HttpResponse
 from rest_framework import generics
-from .serializers import DoctorSignupSerializer, PatientSignupSerializer,DoctorSerializer, PatientSerializer
+from .serializers import DoctorSignupSerializer, PatientSignupSerializer,DoctorSerializer, PatientSerializer,CustomUserSerializer
 from .models import CustomUser
-from rest_framework import generics
 from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -149,6 +64,11 @@ def logout_api(request):
     request.user.auth_token.delete()
     return HttpResponse("user logout")
     # return redirect("/login_user")
+
+
+class UserDetailView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
 
 class DoctorSignupView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
