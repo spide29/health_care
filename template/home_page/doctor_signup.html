@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+     <title>Doctor Signup</title>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <style>
+      .swal2-popup {
+    font-size: 16px;
+}
+
+.swal2-title {
+    font-size: 20px;
+}
+
+.swal2-confirm {
+    font-size: 16px;
+}
+
+         body {
+             background-color: #f2f2f2;
+             font-family: Arial, sans-serif;
+         }
+         
+         .container {
+             max-width: 400px;
+             margin: 0 auto;
+             padding: 20px;
+             background-color: #fff;
+             border-radius: 5px;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         }
+         
+         h1 {
+             text-align: center;
+             color: #333;
+         }
+         
+         label {
+              font-size: 18px;
+             display: block;
+             margin-bottom: 10px;
+             color: #555;
+         }
+         
+         input[type="email"]
+         {
+             width: 75%;
+             padding: 10px;
+             margin-bottom: 20px;
+             border: 1px solid #ccc;
+             border-radius: 3px;
+         }
+         input[type="text"]
+         {
+             width: 75%;
+             padding: 10px;
+             margin-bottom: 20px;
+             border: 1px solid #ccc;
+             border-radius: 3px;
+         }
+         
+         input[type="password"] {
+             width: 75%;
+             padding: 10px;
+             margin-bottom: 20px;
+             border: 1px solid #ccc;
+             border-radius: 3px;
+         }
+         
+         button[type="submit"] {
+             display: block;
+             width: 50%;
+             padding: 10px;
+             background-color: #4CAF50;
+             color: #fff;
+             border: none;
+             border-radius: 15px;
+             cursor: pointer;
+         }
+         
+         .error-message {
+             color: red;
+         }
+         
+         .success-message {
+             color: green;
+         }
+         
+         .form-group {
+             position: relative;
+         }
+         
+         .form-group input[type="text"],
+         .form-group input[type="email"],
+         .form-group input[type="password"] {
+             padding-right: 40px;
+         }
+         
+         .form-group i {
+             position: absolute;
+             top: 50%;
+             right: 10px;
+             transform: translateY(-50%);
+             color: #ccc;
+         }
+         
+         .form-group i.fa-check-circle {
+             color: green;
+         }
+         
+         .form-group i.fa-times-circle {
+             color: red;
+         }
+         @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .container {
+            /* Existing styles */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        p {
+            animation: slideIn 0.5s ease-in-out;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .lable-grp {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+.password-container {
+    flex-basis: 49%; /* Adjust the width as needed */
+}
+.success {
+    border-color: green !important;
+}
+
+.error {
+    border-color: red !important;
+}
+
+
+     </style>
+ </head>
+ <body>
+     <div class="container">
+         <h1>Doctor Signup</h1>
+         <form id="signup-form">
+             <div class="form-group">
+                 <label for="license-number">License Number:</label>
+                 <input type="text" class="typ" id="license-number" name="license_number" placeholder="Enter the License-number">
+             </div>
+             
+             <div class="form-group">
+                 <label for="first-name">First Name:</label>
+                 <input type="text" class="typ" id="first-name" name="first_name"placeholder="Enter the first name">
+             </div>
+             
+             <div class="form-group">
+                 <label for="last-name">Last Name:</label>
+                 <input type="text" class="typ" id="last-name" name="last_name"placeholder="Enter the last name">
+             </div>
+             
+             <div class="form-group">
+                 <label for="username">Username:</label>
+                 <input type="text" class="typ" id="username" name="username"placeholder="Enter the username">
+             </div>
+             
+             <div class="form-group">
+                 <label for="email">Email:</label>
+                 <input type="email" class="typ" id="email" name="email"placeholder="Enter the emial">
+             </div>
+             <div class="form-group lable-grp">
+                    <div class="password-container">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password"placeholder="Enter the password">
+                        <i class="fas fa-eye-slash toggle-password"></i>
+
+                    </div>
+                    <div class="password-container">
+                        <label for="password2">Confirm Password:</label>
+                        <input type="password" id="password2" name="password2"placeholder="Enter the confirm password">
+                        <i class="fas fa-eye-slash toggle-password"></i>
+                    </div>
+              </div>
+              <div id="error-container" class="error-message"></div>
+
+             <p>If you are already registered? <a href="/home/login/">login here</a>.</p>
+             <div class="button-group">
+              <button type="button" style="display: block;
+              width: 50%;
+              padding: 10px;
+              background-color: #fd3737;
+              color: #fff;
+              border: none;
+              border-radius: 15px;
+              cursor: pointer;" id="reset-button" onclick="resetForm()">Reset</button>
+              <button type="submit">Sign Up</button>
+            </div>
+         </form>
+     </div>
+     
+     <script>
+      $(document).ready(function() {
+          $("#signup-form").submit(function(event) {
+              event.preventDefault();
+  
+              var formData = {
+                  "license_number": $("#license-number").val(),
+                  "first_name": $("#first-name").val(),
+                  "last_name": $("#last-name").val(),
+                  "username": $("#username").val(),
+                  "email": $("#email").val(),
+                  "password": $("#password").val(),
+                  "password2": $("#password2").val()
+              };
+  
+              $.ajax({
+                    url: "/home/signup/doctor/",
+                    type: "POST",
+                    data: formData,
+                    success: function(response) {
+                        // Handle successful signup
+                        console.log("Signup successful!");
+                        console.log(response);
+                        // Redirect to login page
+                        window.location.href = "/home/login/";
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.log("Signup failed!");
+                        console.log(xhr.responseJSON);
+                        var errors = xhr.responseJSON.password;
+                        displayErrors(errors);
+                    }
+                });
+            });
+
+            function displayErrors(errors) {
+                var errorList = "";
+                if (errors) {
+                    errorList += errors.join("<br>");
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Signup Failed',
+                    html: errorList,
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+  </script>
+  
+     <script>
+        function resetForm() {
+            document.getElementById("signup-form").reset();
+        }
+
+        $(document).ready(function() {
+    $(".toggle-password").click(function() {
+        var input = $(this).prev("input");
+        var icon = $(this);
+
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+            icon.removeClass("fa-eye-slash").addClass("fa-eye");
+        } else {
+            input.attr("type", "password");
+            icon.removeClass("fa-eye").addClass("fa-eye-slash");
+        }
+    });
+
+    $("#password2").on("input", function() {
+        var password1 = $("#password").val();
+        var password2 = $(this).val();
+
+        if (password1 === password2) {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+});
+     </script>
+ </body>
+ </html>
+ 

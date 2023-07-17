@@ -15,16 +15,30 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from . import views
+from . import views
 from .views import DoctorSignupView, PatientSignupView, login_view,logout_api, DoctorListAPIView, PatientListAPIView
 from .views import UserDetailView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('api/users-get/', UserDetailView.as_view(), name='user-detail'),
-    path('api/signup/doctor/', DoctorSignupView.as_view(), name='doctor_signup'),
-    path('api/signup/patient/', PatientSignupView.as_view(), name='patient_signup'),
-    path('api/login/', login_view, name='login'),
-    path('api/logout/', logout_api, name='logout'),
-    path('api/get-doctors/', DoctorListAPIView.as_view(), name='doctor-list'),
-    path('api/get-patients/', PatientListAPIView.as_view(), name='patient-list'),
-]
+
+    path('',views.home,name='home'),
+    path('doctor-signup/',views.doctor_signup,name='doctor_signup'),
+    path('patient-signup/',views.patient_signup,name='patient_signup'),
+    path('login/',views.signin,name='login'),
+    # path('doctor_portal/', views.doctor_portal, name='doctor_portal'),
+    # path('patient_portal/', views.patient_portal, name='patient_portal'),
+
+
+
+########################### API
+
+    path('all-users-get/', UserDetailView.as_view(), name='user-detail'),
+    path('signup/doctor/', DoctorSignupView.as_view(), name='doctor_signup'),
+    path('signup/patient/', PatientSignupView.as_view(), name='patient_signup'),
+    path('login-user/', login_view, name='login'),
+    path('logout-user/', logout_api, name='logout'),
+    path('get-doctors/', DoctorListAPIView.as_view(), name='doctor-list'),
+    path('get-patients/', PatientListAPIView.as_view(), name='patient-list'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
